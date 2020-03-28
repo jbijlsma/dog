@@ -4,21 +4,32 @@ import (
 	"testing"
 )
 
-var yearsTests = []struct {
-	humanYears  int
-	dogYears int
-}{
-	{1, 7},
-	{7, 49},
-	{10, 70},
-}
-
 func TestYears(t *testing.T) {
-	for _, tt := range yearsTests {
+	testCases := []struct {
+		humanYears       int
+		expectedDogYears int
+	} {
+		{
+			humanYears:       1,
+			expectedDogYears: 7,
+		},
+		{
+			humanYears:       7,
+			expectedDogYears: 49,
+		},
+		{
+			humanYears:       10,
+			expectedDogYears: 70,
+		},
+	}
+
+
+	for _, tt := range testCases {
 		t.Run(string(tt.humanYears), func(t *testing.T) {
+			t.Parallel()
 			got := Years(tt.humanYears)
-			if got != tt.dogYears {
-				t.Errorf("got %q, want %q", got, tt.dogYears)
+			if got != tt.expectedDogYears {
+				t.Errorf("got %q, want %q", got, tt.expectedDogYears)
 			}
 		})
 	}
